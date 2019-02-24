@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import './App.css';
-import Person from './Person/Person';
-
+import classes from './App.css';
+import Persons from '../components/Persons/Persons';
+import Cockpit from '../components/Cockpit/Cockpit'
 
 class App extends Component {
   state = {
@@ -48,55 +48,24 @@ class App extends Component {
   }
 
   render() {
-    const style = {
-      backgroundColor: 'green',
-      color: 'white',
-      font: 'inherit',
-      border: '1px solid blue',
-      padding: '8px',
-      cursor: 'pointer',
-    };
-
     let persons = null;
-
+    
     if ( this.state.showPersons ) {
-      persons = (
-        <div>
-          {this.state.persons.map((person, index) => {
-            return <Person
-              click={() => this.deletePersonHandler(index)}
-              name={person.name}
-              age={person.age}
-              key={person.id}
-              changed={(event) => this.nameChangeHandler(event, person.id)} />
-          })}
-        </div> 
-      );
-
-      //adds color before and when hovering. Is directly rendered to the style under button
-      style.backgroundColor = 'red';
-    }
-
-    //this variable to dynamically change the styling of the paragraph below. Placed in className for paragraph
-    let classes = [];
-    if (this.state.persons.length <= 2) {
-      classes.push('red');
-    }
-    if (this.state.persons.length <= 1) {
-      classes.push('bold');
+      persons = <Persons
+            persons={this.state.persons}
+            clicked={this.deletePersonHandler}
+            changed={this.nameChangeHandler} />
     }
 
     return (
-        <div className="App">
-          <h1>Hi, I'm a React App</h1>
-          <p className={classes.join(' ')}>This is really working!!</p>
-          <button 
-            style={style}
-            onClick={this.togglePersonsHandler}>Toggle Persons</button>
+        <div className={classes.App}>
+          <Cockpit 
+            showPersons={this.state.showPersons}
+            persons={this.state.persons}
+            clicked={this.togglePersonsHandler} />
           {persons}  
         </div>
     );
-    // return React.createElement('div', {className: 'App'}, React.createElement('hi', null, 'Does this work now?'));
   }
 }
 

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import './Person.css';
+import classes from './Person.css';
 
 // person is a component. the function is put into a const variable. 
 const person = ( props ) => {
@@ -10,7 +10,7 @@ const person = ( props ) => {
     //when using props, they inherit the properties from other classes
     //props.children will inherit the children of 
     return (
-        <div className="Person"> 
+        <div className={classes.Person}> 
             <p onClick={props.click}>I'm {props.name} and I am {props.age} years old!</p>
             <p>{props.children}</p>
             <input type="text" onChange={props.changed} value={props.name} />
